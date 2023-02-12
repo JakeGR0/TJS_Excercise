@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Context;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
 class Employee
@@ -17,9 +18,11 @@ class Employee
     private ?int $id = null;
 
     #[ORM\Column(length: 20)]
+    #[Assert\Regex('/[a-zA-Z]{1,20}/')]
     private ?string $first_name = null;
 
     #[ORM\Column(length: 20)]
+    #[Assert\Regex('/[a-zA-Z]{1,20}/')]
     private ?string $last_name = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
