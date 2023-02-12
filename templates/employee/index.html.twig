@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Employees{% endblock %}
+
+{% block body %}
+<style>
+    
+    .column_headings {background: #125079; color: #def2f9}
+    ul {column-count: 4; margin: 6%;  padding: 10; column-gap: 0;}
+    form {background: #def2f9; color: #125079; margin: auto; margin-top:5%; padding: 10; width: 60%;}
+    
+    
+    li:nth-child(even){background: #def2f9}
+    .invisible { display: none}
+    li { list-style-type: none; color: #125079; padding:3%}
+    input { margin-bottom: 2%; width : 40%; display:inline-block; padding: 2%; border-color: #00a8c3; color: grey}
+
+    input[type=date] {width:30%; padding: 2%;}
+    button { display: inline-block;  background-color: #f15a25;  color: #ffffff; width: 15%; text-align: center;
+              margin-left:34%; margin-top: 2%; margin-bottom:6%; border-radius: 2px;  font-size: 14px; 
+              padding:1%; border-color: #f15a25; box-shadow:0,0;}    
+    label { width:30%; display:inline-block; text-align: right; padding: 2%   }
+    h1 { width: 100%; text-align: center; padding: 3%;}
+    div { font-family: sans-serif; font-weight: bold;}
+    form>div:nth-child(2)::after, form>div:nth-child(3)::after, form>div:nth-child(4)::after, form>div:nth-child(5)::after {content: "*"; color: red;}
+    form
+    
+</style>
+
+<div >
+    
+    {{form_start(form)}}
+        <h1>Employees</h1>
+        {{form_row(form.first_name)}}
+        
+        {{form_row(form.last_name)}}
+        
+        {{form_row(form.d_o_b)}}
+        
+        {{form_row(form.email)}}
+        
+        
+
+    {{form_end(form)}}   
+    
+
+    {% for message in app.flashes('warning') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    
+    <ul>
+        
+        <li class='column_headings'>First name:</li>
+        
+        {% for employee in employees %}
+            <li>{{employee.FirstName}}</li>
+            
+        {% endfor %}
+        {% if (employees|length % 2) == 0 %}
+            <li class='invisible'/>
+        {% endif %}
+        <li class='column_headings'>Last name:</li>
+        
+        {% for employee in employees %}
+            
+            <li>{{employee.LastName}}</li>
+            
+        {% endfor %}
+        {% if (employees|length % 2) == 0 %}
+            <li class='invisible'/>
+        {% endif %}
+        <li class='column_headings'>Date of birth:</li>
+        
+        {% for employee in employees %}
+            
+            <li>{{employee.DOB|date('d/m/y')}}</li>
+            
+        {% endfor %}
+        {% if (employees|length % 2) == 0 %}
+            <li class='invisible'/>
+        {% endif %}
+        <li class='column_headings'>Email address:</li>
+        
+        {% for employee in employees %}
+            
+            <li>{{employee.email}}</li>
+        {% endfor %}
+        {% if (employees|length % 2) == 0 %}
+            <li class='invisible'/>
+        {% endif %}
+
+
+    
+    </ul>
+</div>
+{% endblock %}
